@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import dtos.BoatDTO;
 import dtos.HarbourDTO;
 import dtos.OwnerDTO;
+import entities.Boat;
 import facades.SystemFacade;
 import utils.EMF_Creator;
 
@@ -40,11 +41,19 @@ public class HarbourResource {
     }
 
     @GET
-    @Path("/boat/{boatID}")
+    @Path("/boatowners/{boatID}/")
     @Produces({MediaType.APPLICATION_JSON})
     public Response getAllOwnersByBoatID(@PathParam("boatID") int boatID) {
         List<OwnerDTO> ownerDTOS = FACADE.getAllOwnersByBoatID(boatID);
         return Response.ok().entity(GSON.toJson(ownerDTOS)).build();
+    }
+
+    @GET
+    @Path("/boat/{boatID}/")
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response getBoatByBoatID(@PathParam("boatID") int boatID) {
+        BoatDTO boatDTO = FACADE.getBoatByID(boatID);
+        return Response.ok().entity(GSON.toJson(boatDTO)).build();
     }
 
     @GET
@@ -93,9 +102,18 @@ public class HarbourResource {
     @Path("/deleteboat/{id}")
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes({MediaType.APPLICATION_JSON})
-    public Response deletePhoneFromPerson(@PathParam("id") int id) throws NotFoundException {
+    public Response deleteBoat(@PathParam("id") int id) throws NotFoundException {
         FACADE.deleteBoat(id);
         return Response.ok().entity("Deleted").build();
+    }
+
+    @POST
+    @Produces({MediaType.APPLICATION_JSON})
+    @Consumes({MediaType.APPLICATION_JSON})
+    public Response createBoat(String content){
+        BoatDTO pdto = GSON.fromJson(content, BoatDTO.class);
+        BoatDTO newPdto = FACADE.createBoat(pdto);
+        return Response.ok().entity(GSON.toJson(newPdto)).build();
     }
 
 }

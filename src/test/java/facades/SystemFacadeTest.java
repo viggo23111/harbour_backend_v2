@@ -152,7 +152,8 @@ public class SystemFacadeTest {
         assertEquals(1,facade.getAllBoats().size());
     }
 
-
-
-
+    @Test
+    void getBoatByIDTest() {
+        System.out.println(facade.getBoatByID(boat1.getId()));
+    }
 }

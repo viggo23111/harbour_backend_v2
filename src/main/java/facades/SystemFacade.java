@@ -103,6 +103,19 @@ public class SystemFacade {
         }
     }
 
+    public BoatDTO getBoatByID(int id){
+        EntityManager em = emf.createEntityManager();
+        try {
+            TypedQuery<Boat> query = em.createQuery("SELECT b FROM Boat b where b.id=:id", Boat.class);
+            query.setParameter("id",id);
+            Boat boat = query.getSingleResult();
+            return new BoatDTO(boat);
+        } finally {
+            em.close();
+        }
+    }
+
+
     public List<HarbourDTO> getAllHarbours(){
         EntityManager em = emf.createEntityManager();
         try {
