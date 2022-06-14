@@ -16,7 +16,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
-@Path("/system")
+
 public class HarbourResource {
     //Todo Remove or change relevant parts before ACTUAL use
 
