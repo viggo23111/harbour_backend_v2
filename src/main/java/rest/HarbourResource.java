@@ -9,6 +9,7 @@ import entities.Boat;
 import facades.SystemFacade;
 import utils.EMF_Creator;
 
+import javax.annotation.security.RolesAllowed;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -75,6 +76,7 @@ public class HarbourResource {
 
     @PUT
     @Path("/boatconnectharbour/{boatID}/{harbourID}")
+    @RolesAllowed("admin")
     @Produces({MediaType.APPLICATION_JSON})
     public Response connectBoatToHarbour(@PathParam("boatID") int boatID, @PathParam("harbourID") int harbourID) {
         BoatDTO updated = FACADE.connectBoatToHarbour(boatID,harbourID);
@@ -108,11 +110,24 @@ public class HarbourResource {
     }
 
     @POST
+    @Path("/createboat/")
+    @RolesAllowed("admin")
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes({MediaType.APPLICATION_JSON})
     public Response createBoat(String content){
         BoatDTO pdto = GSON.fromJson(content, BoatDTO.class);
         BoatDTO newPdto = FACADE.createBoat(pdto);
+        return Response.ok().entity(GSON.toJson(newPdto)).build();
+    }
+
+    @POST
+    @Path("/createowner/")
+    @RolesAllowed("admin")
+    @Produces({MediaType.APPLICATION_JSON})
+    @Consumes({MediaType.APPLICATION_JSON})
+    public Response createOwner(String content){
+        OwnerDTO pdto = GSON.fromJson(content, OwnerDTO.class);
+        OwnerDTO newPdto = FACADE.createOwner(pdto);
         return Response.ok().entity(GSON.toJson(newPdto)).build();
     }
 

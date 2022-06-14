@@ -50,18 +50,9 @@ public class SystemFacade {
         }
         return owner;
     }
-    public BoatDTO createBoat(BoatDTO boatDTO){
-        Boat boat = new Boat(boatDTO.getBrand(), boatDTO.getMake(), boatDTO.getName(), boatDTO.getImage());
-        EntityManager em = getEntityManager();
-        try {
-            em.getTransaction().begin();
-            em.persist(boat);
-            em.getTransaction().commit();
-        } finally {
-            em.close();
-        }
-        return new BoatDTO(boat);
-    }
+
+
+
 
     public Harbour createHarbour(Harbour harbour){
         EntityManager em = getEntityManager();
@@ -113,6 +104,32 @@ public class SystemFacade {
         } finally {
             em.close();
         }
+    }
+
+    public BoatDTO createBoat(BoatDTO boatDTO){
+        Boat boat = new Boat(boatDTO.getBrand(), boatDTO.getMake(), boatDTO.getName(), boatDTO.getImage());
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.persist(boat);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+        return new BoatDTO(boat);
+    }
+
+    public OwnerDTO createOwner(OwnerDTO ownerDTO){
+        Owner owner = new Owner(ownerDTO.getName(), ownerDTO.getAddress(), ownerDTO.getPhone());
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.persist(owner);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+        return new OwnerDTO(owner);
     }
 
 

@@ -79,7 +79,7 @@ public class Owner {
 
     public void removeBoat(Boat boat) {
         this.boats.remove(boat);
-        if(!boat.getOwners().contains(this)){
+        if(boat.getOwners().contains(this)){
             boat.getOwners().remove(this);
         }
     }
